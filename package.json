@@ -1,0 +1,33 @@
+{
+  "name": "testcafe-lighthouse",
+  "version": "1.0.0",
+  "description": "Testcafe Lighthouse Audit",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com"
+  },
+  "keywords": [
+    "testcafe",
+    "testcafe-lighthouse"
+  ],
+  "author": "Abhinaba Ghosh",
+  "license": "MIT",
+  "dependencies": {
+    "lighthouse": "^6.0.0",
+    "pa11y": "^5.3.0",
+    "ua-parser-js": "^0.7.21"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "testcafe": "^1.8.6"
+  }
+}
