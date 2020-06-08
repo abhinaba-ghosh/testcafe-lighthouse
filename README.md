@@ -1,8 +1,8 @@
-![screen](lh.jpg)
+![screen](./docs/lh.jpg)
 
 ## Lighthouse Testcafe - NPM Package
 
-[![NPM release](https://img.shields.io/npm/v/testcafe-lighthouse-audit.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse-audit)
+[![NPM release](https://img.shields.io/npm/v/testcafe-lighthouse.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse)
 [![PayPal donation](https://github.com/jaymoulin/jaymoulin.github.io/raw/master/ppl.png 'PayPal donation')](https://paypal.me/abhinabaghosh)
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png 'Buy me a coffee')](https://paypal.me/abhinabaghosh)
 
@@ -144,10 +144,10 @@ This will result in below HTML report
 
 ## Tell me your issues
 
-you can raise any issue [here](https://github.com/abhinaba-ghosh/testcafe-lighthouse-audit/issues)
+you can raise any issue [here](https://github.com/abhinaba-ghosh/testcafe-lighthouse/issues)
 
 ## Before you go
 
-If it works for you , give a [Star](https://github.com/abhinaba-ghosh/testcafe-lighthouse-audit)! :star:
+If it works for you , give a [Star](https://github.com/abhinaba-ghosh/testcafe-lighthouse)! :star:
 
 _- Copyright &copy; 2020- [Abhinaba Ghosh](https://www.linkedin.com/in/abhinaba-ghosh-9a2ab8a0/)_
