@@ -1,4 +1,4 @@
-![screen](./docs/lh.jpg)
+![screen](docs/lh.jpg)
 
 ## Lighthouse Testcafe - NPM Package
 
