@@ -1,5 +1,5 @@
 {
-  "name": "testcafe-lighthouse",
+  "name": "testcafe-lighthouse-audit",
   "version": "1.0.0",
   "description": "Testcafe Lighthouse Audit",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/abhinaba-ghosh/testcafe-lighthouse"
+    "url": "https://github.com/abhinaba-ghosh/testcafe-lighthouse-audit"
   },
   "keywords": [
     "testcafe",
