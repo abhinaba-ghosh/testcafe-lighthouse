@@ -2,7 +2,7 @@ import { testcafeLighthouseAudit } from '../index';
 
 fixture(`Audit Test`).page('https://angular.io/');
 
-test('user page performance with specific thresholds', async () => {
+test('user audits webpage with specific thresholds', async () => {
   await testcafeLighthouseAudit({
     thresholds: {
       performance: 50,

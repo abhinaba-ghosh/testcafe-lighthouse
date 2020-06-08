@@ -1,91 +1,78 @@
-## Why cypress-audit?
+![screen](./docs/lh.jpg)
 
-The tools we can use nowadays to verify the quality of our applications are awesome. They help us get a huge amount of confidence about what we ship in production and alert us when some kind of regression occurs.
+## Lighthouse Testcafe - NPM Package
 
-- [Cypress](https://cypress.io/) has made business oriented workflow verification super easy and fun
-- [Lighthouse](https://developers.google.com/web/tools/lighthouse) has provided incredible tools to verify the performance of an application
-- [Pa11y](https://pa11y.org/) provides multiple tool to control the accessibility state of our applications in a wonderful way
+[![NPM release](https://img.shields.io/npm/v/google-lighthouse-puppeteer.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse)
+[![PayPal donation](https://github.com/jaymoulin/jaymoulin.github.io/raw/master/ppl.png 'PayPal donation')](https://paypal.me/abhinabaghosh)
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png 'Buy me a coffee')](https://paypal.me/abhinabaghosh)
 
-The problem is that they run in their own context and with their own internal tricks for authentication and page browsing.
+[Lighthouse](https://developers.google.com/web/tools/lighthouse) is a tool developed by Google that analyzes web apps and web pages, collecting modern performance metrics and insights on developer best practices.
 
-The idea of `cypress-audit` is to unify all of this by providing some [Cypress Custom Commands](https://docs.cypress.io/api/cypress-api/custom-commands.html) so that you can use these tools **directly inside your Cypress tests, close to your custom shortcut for navigation and login.**
+The purpose of this package is to produce performance report for several pages in connected mode and in an automated (programmatic) way.
 
 ## Usage
 
 ### Installation
 
-To make `cypress-audit` working in your project, you have to follow these **3 steps**:
-
-- In your favorite terminal:
+You can have to add the `testcafe-lighthouse` library as a dependency (or dev-dependency) in your project
 
 ```sh
-$ yarn add -D cypress-audit
+$ yarn add -D testcafe-lighthouse
 # or
-$ npm install --save-dev cypress-audit
-```
-
-- In the `cypress/plugins/index.js` file:
-
-```javascript
-const { lighthouse, pa11y, prepareAudit } = require('cypress-audit');
-
-module.exports = (on, config) => {
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    prepareAudit(launchOptions);
-  });
-
-  on('task', {
-    lighthouse: lighthouse(), // calling the function is important
-    pa11y: pa11y(), // calling the function is important
-  });
-};
-```
-
-- In the `cypress/support/commands.js` file:
-
-```javascript
-import 'cypress-audit/commands';
+$ npm install --save-dev testcafe-lighthouse
 ```
 
 ### In your code
 
-After completing the [Installation](#installation) section, you are now able to use the `cy.audit` and `cy.pa11y` commands inside your tests.
+After completion of the Installation, you can use `testcafe-lighthouse` in your code to audit the current page.
 
-```javascript
-it('should pass the audits', function () {
-  cy.lighthouse();
-  cy.pa11y();
+**_Step 1:_**
+In your test code you need to import `testcafe-lighthouse` and assign a `cdpPort` for the lighthouse scan. You can choose any non-allocated port.
+
+```js
+import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
+
+fixture(`Audit Test`).page('http://localhost:3000/login');
+
+test('user performs lighthouse audit', async () => {
+  await testcafeLighthouseAudit({
+    cdpPort: 9222,
+  });
 });
 ```
 
-### cy.pa11y()
+**_Step 2:_**
+Kick start test execution with the same `cdpPort`.
 
-![A Pa11y record showing some test failing on color contrast, landmark, heading and regions.](./docs/pally.png)
+```ssh
+// headless mode, preferable for CI
+npx testcafe chrome:headless:cdpPort=9222 test.js
 
-You can call `cy.pa11Y(opts)` with `opts` being any kind of [the pa11y options](https://github.com/pa11y/pa11y#configuration).
+// non headless mode
+npx testcafe 'chrome --remote-debugging-port=9222'  test.js
+```
 
-### cy.lighthouse()
+## Thresholds per tests
 
-![A Lighthouse record showing some test failing on best-practices and performances](./docs/lh.png)
+If you don't provide any threshold argument to the `testcafeLighthouseAudit` command, the test will fail if at least one of your metrics is under `100`.
 
-#### Good to know before
-
-Lighthouse is a tool that is supposed to run against a production bundle for computing the `performance` and `best-practices` metrics. But it's widely suggested by [Cypress to run their test on development environment](https://docs.cypress.io/guides/getting-started/testing-your-app.html#Step-1-Start-your-server). While this seems a bit counter intuitive, we can rely on the [Cypress project feature](https://docs.cypress.io/guides/guides/command-line.html#cypress-run-project-lt-project-path-gt) to run some dedicated test suites against production bundles and to have quick feedbacks (or prevent regression) on these metrics.
-
-#### Thresholds per tests
-
-If you don't provide any argument to the `cy.audit` command, the test will fail if at least one of your metrics is under `100`.
-
-You can make assumptions on the different metrics by passing an object as argument to the `cy.audit` command:
+You can make assumptions on the different metrics by passing an object as argument to the `testcafeLighthouseAudit` command:
 
 ```javascript
-it('should verify the lighthouse scores with thresholds', function () {
-  cy.lighthouse({
-    performance: 85,
-    accessibility: 100,
-    'best-practices': 85,
-    seo: 85,
-    pwa: 100,
+import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
+
+fixture(`Audit Test`).page('https://angular.io/');
+
+test('user page performance with specific thresholds', async () => {
+  await testcafeLighthouseAudit({
+    thresholds: {
+      performance: 50,
+      accessibility: 50,
+      'best-practices': 50,
+      seo: 50,
+      pwa: 50,
+    },
+    cdpPort: 9222,
   });
 });
 ```
@@ -95,39 +82,24 @@ If the Lighthouse analysis returns scores that are under the one set in argument
 You can also make assumptions only on certain metrics. For example, the following test will **only** verify the "correctness" of the `performance` metric:
 
 ```javascript
-it('should verify the lighthouse scores ONLY for performance', function () {
-  cy.lighthouse({
-    performance: 85,
+test('user page performance with specific thresholds', async () => {
+  await testcafeLighthouseAudit({
+    thresholds: {
+      performance: 85,
+    },
+    cdpPort: 9222,
   });
 });
 ```
 
 This test will fail only when the `performance` metric provided by Lighthouse will be under `85`.
 
-#### Globally set thresholds
-
-While I would recommend to make per-test assumptions, it's possible to define general metrics inside the `cypress.json` file as following:
-
-```json
-{
-  "lighthouse": {
-    "performance": 85,
-    "accessibility": 50,
-    "best-practices": 85,
-    "seo": 85,
-    "pwa": 50
-  }
-}
-```
-
-_Note: These metrics are override by the per-tests one._
-
-#### Passing options and config to Lighthouse directly
+## Passing different Lighthouse config to testcafe-lighthouse directly
 
 You can also pass any argument directly to the Lighthouse module using the second and third options of the command:
 
 ```js
-const thresholds = {
+const thresholdsConfig = {
   /* ... */
 };
 
@@ -139,32 +111,45 @@ const lighthouseConfig = {
   /* ... your lighthouse configs */
 };
 
-cy.lighthouse(thresholds, lighthouseOptions, lighthouseConfig);
+await testcafeLighthouseAudit({
+  thresholds: thresholdsConfig,
+  opts: lighthouseOptions,
+  config: lighthouseConfig,
+
+  /* ... other configurations */
+});
 ```
 
-### Accessing the raw reports
+## Generating HTML audit report
 
-When using custom tools, it can be conveniant to directly access to raw information provided by the specific tool for doing manual things like generating a custom reports.
+`testcafe-lighthouse` library can produce very famous Lighthouse HTML audit report, that you can host in your CI server. This report is really necessary to check the detailed report.
 
-To do so, you can pass a `callback` function to the task initializer and when an audit is run, it will be triggered with the raw information.
+```js
+await testcafeLighthouseAudit({
+  /* ... other configurations */
 
-In the `cypress/plugins/index.js` file:
-
-```javascript
-const { lighthouse, pa11y, prepareAudit } = require('cypress-audit');
-
-module.exports = (on, config) => {
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    prepareAudit(launchOptions);
-  });
-
-  on('task', {
-    lighthouse: lighthouse((lighthouseReport) => {
-      console.log(lighthouseReport); // raw lighthouse report
-    }),
-    pa11y: pa11y((pa11yReport) => {
-      console.log(pa11yReport); // raw pa11y report
-    }),
-  });
-};
+  htmlReport: true, //defaults to false
+  reportDir: `path/to/directory`, //defaults to `${process.cwd()}/lighthouse`
+  reportName: `name-of-the-report`, //defaults to `lighthouse-${new Date().getTime()}.html`
+});
 ```
+
+This will result in below HTML report
+
+![screen](./docs/lighthouse_report.PNG)
+
+## Demo
+
+![demo](./docs/demo.gif)
+
+## Tell me your issues
+
+you can raise any issue [here](https://github.com/abhinaba-ghosh/testcafe-lighthouse/issues)
+
+## Before you go
+
+If this plugin helps you in your automation journey, choose to [Sponsor or buy me a coffee](https://paypal.me/abhinabaghosh)
+
+If it works for you , give a [Star](https://github.com/abhinaba-ghosh/testcafe-lighthouse)! :star:
+
+_- Copyright &copy; 2020- [Abhinaba Ghosh](https://www.linkedin.com/in/abhinaba-ghosh-9a2ab8a0/)_

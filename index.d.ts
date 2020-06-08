@@ -1,12 +1,11 @@
 export interface testCafeLighthouseConfig {
-  url: string;
-  thresholds: any;
-  opts: any;
-  config: any;
-  htmlReport: boolean;
-  reportDir: string;
-  reportName: string;
   cdpPort: number;
+  thresholds?: any;
+  opts?: any;
+  config?: any;
+  htmlReport?: boolean;
+  reportDir?: string;
+  reportName?: string;
 }
 
 /**
@@ -31,6 +30,6 @@ export interface testCafeLighthouseConfig {
  * });
  *
  */
-export type testcafeLighthouseAudit = (
+export function testcafeLighthouseAudit(
   testcafeLHConfiguration: testCafeLighthouseConfig
-) => Promise<void>;
+): Promise<void>;
