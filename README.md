@@ -2,7 +2,7 @@
 
 ## Lighthouse Testcafe - NPM Package
 
-[![NPM release](https://img.shields.io/npm/v/google-lighthouse-puppeteer.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse)
+[![NPM release](https://img.shields.io/npm/v/testcafe-lighthouse.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse)
 [![PayPal donation](https://github.com/jaymoulin/jaymoulin.github.io/raw/master/ppl.png 'PayPal donation')](https://paypal.me/abhinabaghosh)
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png 'Buy me a coffee')](https://paypal.me/abhinabaghosh)
 
