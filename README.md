@@ -136,7 +136,7 @@ await testcafeLighthouseAudit({
 
 This will result in below HTML report
 
-![screen](./docs/lighthouse_report.PNG)
+![screen](./docs/lighthouse_report.png)
 
 ## Demo
 
@@ -147,8 +147,6 @@ This will result in below HTML report
 you can raise any issue [here](https://github.com/abhinaba-ghosh/testcafe-lighthouse/issues)
 
 ## Before you go
-
-If this plugin helps you in your automation journey, choose to [Sponsor or buy me a coffee](https://paypal.me/abhinabaghosh)
 
 If it works for you , give a [Star](https://github.com/abhinaba-ghosh/testcafe-lighthouse)! :star:
 
