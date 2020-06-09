@@ -1,6 +1,6 @@
 {
   "name": "testcafe-lighthouse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Testcafe Lighthouse Audit",
   "main": "index.js",
   "scripts": {
