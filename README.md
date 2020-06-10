@@ -49,7 +49,7 @@ Kick start test execution with the same `cdpPort`.
 npx testcafe chrome:headless:cdpPort=9222 test.js
 
 // non headless mode
-npx testcafe 'chrome --remote-debugging-port=9222'  test.js
+npx testcafe 'chrome:emulation:cdpPort=9222'  test.js
 ```
 
 ## Thresholds per tests
