@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-
+import { promises as fs } from 'fs';
 const lighthouseLib = require('lighthouse');
 const ReportGenerator = require('lighthouse/lighthouse-core/report/report-generator');
 
@@ -25,8 +24,8 @@ const compare = (thresholds, newValue) => {
 const getHtmlReport = async (lhr, dir, name) => {
   const html = ReportGenerator.generateReport(lhr, 'html');
   try {
-    await fs.promises.mkdir(dir, { recursive: true });
-    await fs.promises.writeFile(`${dir}/${name}`, html);
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(`${dir}/${name}`, html);
   } catch (err) {
     throw err;
   }
