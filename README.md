@@ -34,8 +34,10 @@ import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
 
 fixture(`Audit Test`).page('http://localhost:3000/login');
 
-test('user performs lighthouse audit', async () => {
+test('user performs lighthouse audit', async (t) => {
+  const currentURL = await t.eval(() => document.documentURI);
   await testcafeLighthouseAudit({
+    url: currentURL,
     cdpPort: 9222,
   });
 });
@@ -63,8 +65,10 @@ import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
 
 fixture(`Audit Test`).page('https://angular.io/');
 
-test('user page performance with specific thresholds', async () => {
+test('user page performance with specific thresholds', async (t) => {
+  const currentURL = await t.eval(() => document.documentURI);
   await testcafeLighthouseAudit({
+    url: currentURL,
     thresholds: {
       performance: 50,
       accessibility: 50,
@@ -82,8 +86,10 @@ If the Lighthouse analysis returns scores that are under the one set in argument
 You can also make assumptions only on certain metrics. For example, the following test will **only** verify the "correctness" of the `performance` metric:
 
 ```javascript
-test('user page performance with specific thresholds', async () => {
+test('user page performance with specific thresholds', async (t) => {
+  const currentURL = await t.eval(() => document.documentURI);
   await testcafeLighthouseAudit({
+    url: currentURL,
     thresholds: {
       performance: 85,
     },

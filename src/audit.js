@@ -1,4 +1,4 @@
-import { t, ClientFunction } from 'testcafe';
+const { t, ClientFunction } = require('testcafe');
 const uaParser = require('ua-parser-js');
 const { lighthouse } = require('./task');
 const chalk = require('chalk');
@@ -15,17 +15,18 @@ const defaultThresholds = {
 
 const VALID_BROWSERS = ['Chrome', 'Chromium', 'Canary'];
 
-exports.testcafeLighthouseAudit = async (auditConfig = {}) => {
-  const currentBrowserName = await getBrowserName();
-  const currentPageURL = await getCurrentURI();
+let testcafeLighthouseAudit = async function (auditConfig = {}) {
+  const getUA = ClientFunction(() => navigator.userAgent);
+  const ua = await getUA();
+  const currentBrowserName = uaParser(ua).browser.name;
 
   if (!checkBrowserIsValid(currentBrowserName)) {
     throw new Error(`${currentBrowserName} is not supported. Skipping...`);
   }
 
-  if (!auditConfig.cdpPort) {
+  if (!auditConfig.cdpPort || !auditConfig.url) {
     throw new Error(
-      `cdpPort is not set in testcafe lighthouse config. Refer to https://github.com/abhinaba-ghosh/testcafe-lighthouse to have more information and set remote debugging port by yourself :). `
+      `cdpPort/URL is not set in testcafe lighthouse config. Refer to https://github.com/abhinaba-ghosh/testcafe-lighthouse to have more information and set it by yourself :). `
     );
   }
 
@@ -39,7 +40,7 @@ exports.testcafeLighthouseAudit = async (auditConfig = {}) => {
   }
 
   const { errors, results } = await lighthouse({
-    url: currentPageURL,
+    url: auditConfig.url,
     thresholds: auditConfig.thresholds || defaultThresholds,
     opts: auditConfig.opts,
     config: auditConfig.config,
@@ -69,17 +70,6 @@ exports.testcafeLighthouseAudit = async (auditConfig = {}) => {
   }
 };
 
-const getBrowserName = async () => {
-  const getUA = ClientFunction(() => navigator.userAgent);
-  const ua = await getUA();
-  return uaParser(ua).browser.name;
-};
-
-const getCurrentURI = async () => {
-  const currentPageURL = await t.eval(() => document.documentURI);
-  return currentPageURL;
-};
-
 const checkBrowserIsValid = (browserName) => {
   const matches = VALID_BROWSERS.filter((pattern) => {
     return new RegExp(pattern).test(browserName);
@@ -90,3 +80,5 @@ const checkBrowserIsValid = (browserName) => {
   }
   return false;
 };
+
+exports.testcafeLighthouseAudit = testcafeLighthouseAudit;

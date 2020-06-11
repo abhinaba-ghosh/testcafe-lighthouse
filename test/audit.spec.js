@@ -1,17 +1,13 @@
-import { testcafeLighthouseAudit } from '../src/audit';
+import { testcafeLighthouseAudit } from '../index';
 
 fixture(`Audit Test`).page('https://angular.io/');
 
-test('user audits webpage with specific thresholds', async () => {
+test('user audits webpage with specific thresholds', async (t) => {
+  const currentURL = await t.eval(() => document.documentURI);
+  console.log('url:', currentURL);
+
   await testcafeLighthouseAudit({
-    thresholds: {
-      performance: 50,
-      accessibility: 50,
-      'best-practices': 50,
-      seo: 50,
-      pwa: 50,
-    },
+    url: currentURL,
     cdpPort: 9222,
-    htmlReport: true,
   });
 });
