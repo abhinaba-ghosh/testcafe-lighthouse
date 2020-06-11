@@ -1,7 +1,7 @@
-import { t, ClientFunction } from 'testcafe';
-import uaParser from 'ua-parser-js';
-import { lighthouse } from './task';
-import chalk from 'chalk';
+const { t, ClientFunction } = require('testcafe');
+const uaParser = require('ua-parser-js');
+const { lighthouse } = require('./task');
+const chalk = require('chalk');
 
 const log = console.log;
 
