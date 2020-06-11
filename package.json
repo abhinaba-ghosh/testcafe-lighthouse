@@ -1,6 +1,6 @@
 {
-  "name": "testcafe-lighthouse",
-  "version": "1.0.5",
+  "name": "testcafe-lighthouse-1",
+  "version": "1.0.6",
   "description": "Testcafe Lighthouse Audit",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,10 @@
     "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
-    "testcafe": "^1.8.6"
+    "testcafe": "^1.8.6",
+    "testcafe-lighthouse": "^1.0.5"
+  },
+  "peerDependencies": {
+    "testcafe": ">1.0.0"
   }
 }

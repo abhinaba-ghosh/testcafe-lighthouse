@@ -1,4 +1,4 @@
-const { t, ClientFunction } = require('testcafe');
+import { t, ClientFunction } from 'testcafe';
 const uaParser = require('ua-parser-js');
 const { lighthouse } = require('./task');
 const chalk = require('chalk');

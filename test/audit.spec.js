@@ -1,4 +1,4 @@
-import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
+import { testcafeLighthouseAudit } from '../src/audit';
 
 fixture(`Audit Test`).page('https://angular.io/');
 
