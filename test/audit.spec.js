@@ -8,6 +8,14 @@ test('user audits webpage with specific thresholds', async (t) => {
 
   await testcafeLighthouseAudit({
     url: currentURL,
+    thresholds: {
+      performance: 50,
+      accessibility: 50,
+      'best-practices': 50,
+      seo: 50,
+      pwa: 50,
+    },
     cdpPort: 9222,
+    htmlReport: true,
   });
 });
