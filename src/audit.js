@@ -15,7 +15,7 @@ const defaultThresholds = {
 
 const VALID_BROWSERS = ['Chrome', 'Chromium', 'Canary'];
 
-export const testcafeLighthouseAudit = async (auditConfig = {}) => {
+exports.testcafeLighthouseAudit = async (auditConfig = {}) => {
   const currentBrowserName = await getBrowserName();
   const currentPageURL = await getCurrentURI();
 

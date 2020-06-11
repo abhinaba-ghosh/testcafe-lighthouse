@@ -31,7 +31,7 @@ const getHtmlReport = async (lhr, dir, name) => {
   }
 };
 
-export const lighthouse = async ({
+exports.lighthouse = async ({
   url,
   thresholds,
   opts = {},
