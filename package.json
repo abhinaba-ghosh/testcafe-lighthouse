@@ -1,10 +1,10 @@
 {
   "name": "testcafe-lighthouse",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Testcafe Lighthouse Audit",
   "main": "index.js",
   "scripts": {
-    "test": "npx testcafe chrome:headless:cdpPort=9222 test/audit.spec.js"
+    "test": "npx testcafe chrome:emulation:cdpPort=9222 test/audit.spec.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
   },
   "devDependencies": {
     "testcafe": "^1.8.6"
+  },
+  "peerDependencies": {
+    "testcafe": ">1.0.0"
   }
 }
