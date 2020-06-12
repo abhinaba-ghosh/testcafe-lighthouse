@@ -4,7 +4,7 @@
   "description": "Testcafe Lighthouse Audit",
   "main": "index.js",
   "scripts": {
-    "test": "npx testcafe chrome:emulation:cdpPort=9222 test/audit.spec.js"
+    "test": "npx testcafe chrome:headless:cdpPort=9222 test/audit.spec.js"
   },
   "repository": {
     "type": "git",
