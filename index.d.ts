@@ -1,4 +1,5 @@
 export interface testCafeLighthouseConfig {
+  url: string;
   cdpPort: number;
   thresholds?: any;
   opts?: any;
