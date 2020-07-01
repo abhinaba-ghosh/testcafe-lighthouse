@@ -15,7 +15,7 @@ const defaultThresholds = {
 
 const VALID_BROWSERS = ['Chrome', 'Chromium', 'Canary'];
 
-let testcafeLighthouseAudit = async function (auditConfig = {}) {
+let testcafeAudit = async function (auditConfig = {}) {
   const getUA = ClientFunction(() => navigator.userAgent);
   const ua = await getUA();
   const currentBrowserName = uaParser(ua).browser.name;
@@ -39,15 +39,16 @@ let testcafeLighthouseAudit = async function (auditConfig = {}) {
     );
   }
 
+  const reportsConfig = {
+    ...auditConfig.reports,
+  };
+
   const { errors, results } = await lighthouse({
     url: auditConfig.url,
     thresholds: auditConfig.thresholds || defaultThresholds,
     opts: auditConfig.opts,
     config: auditConfig.config,
-    htmlReport: auditConfig.htmlReport || false,
-    reportDir: auditConfig.reportDir || `${process.cwd()}/lighthouse`,
-    reportName:
-      auditConfig.reportName || `lighthouse-${new Date().getTime()}.html`,
+    reports: reportsConfig,
     cdpPort: auditConfig.cdpPort,
   });
 
@@ -81,4 +82,4 @@ const checkBrowserIsValid = (browserName) => {
   return false;
 };
 
-exports.testcafeLighthouseAudit = testcafeLighthouseAudit;
+exports.testcafeAudit = testcafeAudit;

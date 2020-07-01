@@ -1,2 +1,2 @@
-const { testcafeLighthouseAudit } = require('./src/audit');
-module.exports = { testcafeLighthouseAudit };
+const { testcafeAudit } = require('./src/audit');
+module.exports = { testcafeAudit };

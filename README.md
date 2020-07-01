@@ -3,8 +3,6 @@
 ## Lighthouse Testcafe - NPM Package
 
 [![NPM release](https://img.shields.io/npm/v/testcafe-lighthouse.svg 'NPM release')](https://www.npmjs.com/package/testcafe-lighthouse)
-[![PayPal donation](https://github.com/jaymoulin/jaymoulin.github.io/raw/master/ppl.png 'PayPal donation')](https://paypal.me/abhinabaghosh)
-[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png 'Buy me a coffee')](https://paypal.me/abhinabaghosh)
 
 [Lighthouse](https://developers.google.com/web/tools/lighthouse) is a tool developed by Google that analyzes web apps and web pages, collecting modern performance metrics and insights on developer best practices.
 
@@ -30,13 +28,13 @@ After completion of the Installation, you can use `testcafe-lighthouse` in your 
 In your test code you need to import `testcafe-lighthouse` and assign a `cdpPort` for the lighthouse scan. You can choose any non-allocated port.
 
 ```js
-import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
+import { testcafeAudit } from 'testcafe-lighthouse';
 
 fixture(`Audit Test`).page('http://localhost:3000/login');
 
 test('user performs lighthouse audit', async (t) => {
   const currentURL = await t.eval(() => document.documentURI);
-  await testcafeLighthouseAudit({
+  await testcafeAudit({
     url: currentURL,
     cdpPort: 9222,
   });
@@ -56,18 +54,18 @@ npx testcafe 'chrome:emulation:cdpPort=9222'  test.js
 
 ## Thresholds per tests
 
-If you don't provide any threshold argument to the `testcafeLighthouseAudit` command, the test will fail if at least one of your metrics is under `100`.
+If you don't provide any threshold argument to the `testcafeAudit` command, the test will fail if at least one of your metrics is under `100`.
 
-You can make assumptions on the different metrics by passing an object as argument to the `testcafeLighthouseAudit` command:
+You can make assumptions on the different metrics by passing an object as argument to the `testcafeAudit` command:
 
 ```javascript
-import { testcafeLighthouseAudit } from 'testcafe-lighthouse';
+import { testcafeAudit } from 'testcafe-lighthouse';
 
 fixture(`Audit Test`).page('https://angular.io/');
 
 test('user page performance with specific thresholds', async (t) => {
   const currentURL = await t.eval(() => document.documentURI);
-  await testcafeLighthouseAudit({
+  await testcafeAudit({
     url: currentURL,
     thresholds: {
       performance: 50,
@@ -88,7 +86,7 @@ You can also make assumptions only on certain metrics. For example, the followin
 ```javascript
 test('user page performance with specific thresholds', async (t) => {
   const currentURL = await t.eval(() => document.documentURI);
-  await testcafeLighthouseAudit({
+  await testcafeAudit({
     url: currentURL,
     thresholds: {
       performance: 85,
@@ -117,7 +115,7 @@ const lighthouseConfig = {
   /* ... your lighthouse configs */
 };
 
-await testcafeLighthouseAudit({
+await testcafeAudit({
   thresholds: thresholdsConfig,
   opts: lighthouseOptions,
   config: lighthouseConfig,
@@ -126,23 +124,32 @@ await testcafeLighthouseAudit({
 });
 ```
 
-## Generating HTML audit report
+## Generating audit reports
 
-`testcafe-lighthouse` library can produce very famous Lighthouse HTML audit report, that you can host in your CI server. This report is really necessary to check the detailed report.
+`testcafe-lighthouse` library can produce Lighthouse CSV, HTML and JSON audit reports, that you can host in your CI server. These reports can be useful for ongoing audits and monitoring from build to build.
 
 ```js
-await testcafeLighthouseAudit({
+await testcafeAudit({
   /* ... other configurations */
 
-  htmlReport: true, //defaults to false
-  reportDir: `path/to/directory`, //defaults to `${process.cwd()}/lighthouse`
-  reportName: `name-of-the-report`, //defaults to `lighthouse-${new Date().getTime()}.html`
+  reports: {
+    /* you can any of them or combination of them */
+    json: true, //defaults to false
+    html: true, //defaults to false
+    csv: true, //defaults to false
+  },
+  name: `name-of-the-report`, //defaults to `lighthouse-${new Date().getTime()}`
+  directory: `path/to/directory`, //defaults to `${process.cwd()}/lighthouse`
 });
 ```
 
 This will result in below HTML report
 
 ![screen](./docs/lighthouse_report.png)
+
+## Sample Tests
+
+You can find sample tests [here](./test)
 
 ## Demo
 

@@ -4,9 +4,7 @@ export interface testCafeLighthouseConfig {
   thresholds?: any;
   opts?: any;
   config?: any;
-  htmlReport?: boolean;
-  reportDir?: string;
-  reportName?: string;
+  reports?: {};
 }
 
 /**
@@ -31,6 +29,6 @@ export interface testCafeLighthouseConfig {
  * });
  *
  */
-export function testcafeLighthouseAudit(
+export function testcafeAudit(
   testcafeLHConfiguration: testCafeLighthouseConfig
 ): Promise<void>;
