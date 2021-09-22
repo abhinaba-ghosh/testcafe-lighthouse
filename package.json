@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.0.0",
-    "lighthouse": "^6.0.0",
+    "lighthouse": "^8.5.1",
     "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
