@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "testcafe": "^1.8.6"
+    "testcafe": "^2.1.0"
   },
   "peerDependencies": {
     "testcafe": ">1.0.0"
